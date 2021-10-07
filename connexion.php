@@ -24,7 +24,7 @@ $adresseMail = (!empty($_POST['adresseMail'])) ? $_POST['adresseMail'] : ''; //c
 $mdp = (!empty($_POST['mdp'])) ? sha1($_POST['mdp']) : ''; //création variable password avec $_POST
 
 if($adresseMail != '' && $mdp != ''){ // si les variables sont différentes de '', on rentre dans le if
-
+  echo = "mdp pas vide";
     global $db; // accède aux variables locales
     $sql = "SELECT *
            FROM utilisateur
@@ -39,13 +39,15 @@ if($adresseMail != '' && $mdp != ''){ // si les variables sont différentes de '
     $array_Result = $requete->fetch(\PDO::FETCH_ASSOC); //fetch récupère une ligne depuis le tableau
 
     if ($requete->rowCount() > 0) { // rowCount retourne le nombre de ligne affectées par le dernier appel à la fonction execute.
-                                    // dans le cas présent, si $requete > 0, on ouvre l'accès
+                        
+        echo "row 0";// dans le cas présent, si $requete > 0, on ouvre l'accès
         session_start(); // la session démarre
         foreach ($array_Result as $key => $value) { //foreach parcoure les tableaux et assigne la clé de lancement à $key
 
             $_SESSION[$key] = $value; // la session s'ouvre
         }
     }
+    else echo " row 1";
     }
 
 ?>
@@ -66,11 +68,10 @@ if($adresseMail != '' && $mdp != ''){ // si les variables sont différentes de '
         <br>
         <form action="" method="post">
               <input type="hidden" value="ok" name="control">
-              <input class="date" type="text" name="login" placeholder="Login"><br>
-              <input class="date" type="password" name="password" placeholder="Password"><br>
+              <input class="date" type="text" name="adresseMail" placeholder="Adresse Email"><br>
+              <input class="date" type="password" name="mdp" placeholder="MDP"><br>
               <input class="bouton" type="submit" value="Valider"/>
         </form><br>
-      <center><a class="bouton" href="../../index.php" style="text-decoration: none; padding:10px; color: black;">Retour au site principal</a></center>
     </div>
 </body>
 </html>
